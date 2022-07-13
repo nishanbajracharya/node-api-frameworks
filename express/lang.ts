@@ -1,19 +1,22 @@
 import express from 'express';
-import { readFile } from 'node:fs/promises';
+import language from './language.json';
+
+interface Language {
+  [key: string]: object;
+}
 
 const router = express.Router();
 
-router.get('/', async (req, res) => {
-  try {
-    const lang = await readFile('./language.json', { encoding: 'utf-8' });
-    const json = JSON.parse(lang);
+const error = {
+  error: true,
+  message: `Couldn't get language pack`,
+};
 
-    res.json(json);
+router.get('/', async (_, res) => {
+  try {
+    res.json(language);
   } catch (_) {
-    res.status(404).json({
-      error: true,
-      message: `Couldn't get language pack`,
-    });
+    res.status(404).json(error);
   }
 });
 
@@ -21,10 +24,7 @@ router.get('/:code', async (req, res) => {
   const code = req.params.code;
 
   try {
-    const lang = await readFile('./language.json', { encoding: 'utf-8' });
-    const json = JSON.parse(lang);
-
-    const pack = json[code];
+    const pack = (language as Language)[code];
 
     if (!pack) {
       throw new Error('No language pack');
@@ -32,10 +32,7 @@ router.get('/:code', async (req, res) => {
 
     res.json(pack);
   } catch (_) {
-    res.status(404).json({
-      error: true,
-      message: `Couldn't get language pack`,
-    });
+    res.status(404).json(error);
   }
 });
 

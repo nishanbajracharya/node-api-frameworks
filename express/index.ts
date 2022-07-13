@@ -1,5 +1,5 @@
 import morgan from 'morgan';
-import express, { Response } from 'express';
+import express from 'express';
 
 import langRouter from './lang';
 
@@ -10,7 +10,7 @@ app.use(morgan('short'));
 
 const port = process.env.PORT || 3000;
 
-app.get('/', (_, res: Response) => {
+app.get('/', (_, res) => {
   res.json({
     version: '1.0.0',
   });
