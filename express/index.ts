@@ -1,6 +1,8 @@
 import morgan from 'morgan';
 import express, { Response } from 'express';
 
+import langRouter from './lang';
+
 const app = express();
 
 app.use(express.json());
@@ -13,6 +15,8 @@ app.get('/', (_, res: Response) => {
     version: '1.0.0',
   });
 });
+
+app.use('/lang', langRouter);
 
 app.listen(port, () => {
   console.log('Listening on port', port);
