@@ -5,3 +5,4 @@ Examples of api projects built using node.js frameworks
 - Express
 - Fastify
 - Koa
+- Hapi
