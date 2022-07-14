@@ -12,6 +12,7 @@ const port = process.env.PORT || 3000;
 
 app.get('/', (_, res) => {
   res.json({
+    name: 'express-api',
     version: '1.0.0',
   });
 });
