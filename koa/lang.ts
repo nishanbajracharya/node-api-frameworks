@@ -1,4 +1,4 @@
-import Router from '@koa/router';
+import Router from 'koa-router';
 
 import language from './language.json';
 
